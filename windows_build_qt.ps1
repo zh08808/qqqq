@@ -57,7 +57,7 @@ param (
 # download 7zip
 Write-Host "Download 7Zip commandline tool"
 $7zaExe = Join-Path $destDir '7za.exe'
-Download-File 'https://github.com/chocolatey/chocolatey/blob/master/src/tools/7za.exe?raw=true' "$7zaExe"
+Download-File 'https://github.com/chocolatey/chocolatey/blob/master/src/tools/7za.exe'
 
 # download jom
 Write-Host "Download jom commandline tool"
