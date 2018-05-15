@@ -16,7 +16,7 @@ $qtBuildScriptVersion = '6f59ca17b3bcc6b56fa636522dab6a862be0c856'
 
 if (![System.IO.Directory]::Exists($destDir)) {[System.IO.Directory]::CreateDirectory($destDir)}
 
-function Always-Download-File {
+function Download-File {
 param (
   [string]$url,
   [string]$file
@@ -50,14 +50,14 @@ param (
   [string]$file
   )
   if (![System.IO.File]::Exists($file)) {
-    Always-Download-File $url $file
+    Download-File $url $file
   }
 }
 
 # download 7zip
 Write-Host "Download 7Zip commandline tool"
 $7zaExe = Join-Path $destDir '7za.exe'
-Download-File 'https://github.com/chocolatey/chocolatey/blob/master/src/tools/7za.exe'
+Download-File 'https://github.com/chocolatey/chocolatey/blob/master/src/tools/7za.exe?raw=true' "$7zaExe"
 
 # download jom
 Write-Host "Download jom commandline tool"
@@ -99,19 +99,19 @@ $cmake = Join-Path $cmakeInstallDir 'bin\cmake.exe'
 $qtBuildScriptName = 'build_qt_with_openssl.cmake'
 $qtBuildScriptFile = Join-Path $destDir $qtBuildScriptName
 $url = ('https://raw.githubusercontent.com/jcfr/qt-easy-build/' + $qtBuildScriptVersion + '/cmake/' + $qtBuildScriptName)
-Always-Download-File $url $qtBuildScriptFile
+Download-File $url $qtBuildScriptFile
 
 # download cross-platform helper script(s)
 $scriptName = 'QEBGetOpenSSLBinariesDownloadURL.cmake'
 $scriptFile = Join-Path $destDir $scriptName
 $url = ('https://raw.githubusercontent.com/jcfr/qt-easy-build/' + $qtBuildScriptVersion + '/cmake/' + $scriptName)
-Always-Download-File $url $scriptFile
+Download-File $url $scriptFile
 
 # download cross-platform helper script(s)
 $scriptName = 'QEBQt4ExternalProjectCommand.cmake'
 $scriptFile = Join-Path $destDir $scriptName
 $url = ('https://raw.githubusercontent.com/jcfr/qt-easy-build/' + $qtBuildScriptVersion + '/cmake/' + $scriptName)
-Always-Download-File $url $scriptFile
+Download-File $url $scriptFile
 
 pushd $destDir
 
